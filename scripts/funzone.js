@@ -5,6 +5,15 @@ const canvasCtx = out2.getContext('2d');
 
 const fpsControl = new FPS();
 
+async function PauseCam() {
+    video2.pause(); // Pause the webcam frame
+
+}
+async function PlayCam() {
+    video2.play(); // Play the webcam frame
+
+}
+
 
 function onResultsFaceMesh(results) {
   document.body.classList.add('loaded');

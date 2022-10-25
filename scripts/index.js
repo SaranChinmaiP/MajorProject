@@ -1,6 +1,6 @@
 
 
-const URL = "https://teachablemachine.withgoogle.com/models/VsST_uuZp/";
+const URL = "https://teachablemachine.withgoogle.com/models/6xm60hr9Q/";
 
 
 console.log("Hands.js Script is Runnig");

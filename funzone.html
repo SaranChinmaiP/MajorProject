@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.1/face_mesh.js" crossorigin="anonymous"></script>
     <title>FunZone</title>
 </head>
+
 <body>
-    <p>Media Pipe FunZone</p>
+    <h4 style="text-align: center;">Media Pipe FunZone</h4>
+    <br>
+    <table id="ftable">
+        <tr>
+            <td class="ftabledata">
+                Input<video class="input_video2"></video>
+
+            </td>
+            <td class="ftabledata1"> <canvas class="output2" style="height: 480px ; width: 480px;    "></canvas>
+
+            </td>
+
+
+        </tr>
+    </table>
+
+    <div style="visibility: hidden;" class="control2" />
+
+
+
+
     <script src="./scripts/funzone.js"></script>
 </body>
+
 </html>

@@ -153,10 +153,12 @@ async function predict() {
         
 
     const Factor = Math.floor(max * 100);
+    if(Factor > 70){
     //Finds the Class Name of the  maximum value
     const index = prediction.findIndex((element) => element.probability === max);
     console.log(prediction[index]['className'] + ' : ' + Factor + "%");
     document.getElementById('status').innerText = "Sign : " + prediction[index]['className'] + ' : ' + Factor + "% (confidence rate)";
+    }
 
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =

@@ -4,8 +4,9 @@
 * HTML CSS JavaScript
 ### Librays Used :
 * TensorFlow
-* TensorFlow-JS
 * OpenCV
 * MediaPipe
+* TensorFlow-JS
+
 
 Web design Front-end Framework : BootStrap 4

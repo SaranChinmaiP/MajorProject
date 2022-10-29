@@ -7,11 +7,11 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="./images/hand-peace.png" >
+    <link rel="icon" href="./images/hand-peace.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.css" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <link href="./CSS/index.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
@@ -32,7 +32,7 @@
     <!--HEADER PART-->
 
     <div class="jumbotron text-center" style="margin-bottom:0">
-        <img src="images/vnr-logo.png" alt="VNR-LOGO" class="float-left">
+        <img src="./images/vnr-logo.png" alt="VNR-LOGO" class="float-left">
         <h1>Saran's ✨DL Project </h1>
         <p>Hand Sign Recognition Model Prototype-Version-2022.10.22-2</p>
     </div>
@@ -47,14 +47,15 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="./info.html">PROJECT-INFO</a>
+                    <a class="nav-link" target="_blank" href="./Pages/info.html">PROJECT-INFO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="./funzone.html">FunZone</a>
+                    <a class="nav-link" target="_blank" href="./Pages/funzone.html">FunZone</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="http://www.vnrvjiet.ac.in/">VNR-VJIET</a>
                 </li>
+
                 <li class="nav-item">
                 </li>
             </ul>
@@ -81,7 +82,12 @@
                         data-content="Click on Start Model Button to start the Recognition.">ℹ️ Info</a></button>
 
                 <br>
-                <div class="text-primary" id="label-container"></div>
+                <!-- <div class="text-primary" id="label-container"></div> -->
+                <!-- Text to Speech Conversion-->
+                <p class="custom-control custom-switch ">
+                    <input class="custom-control-input custom-control-input-success" id="SpeechSwitch" type="checkbox">
+                    <label class="custom-control-label" for="SpeechSwitch"></label> <i>Speech-Switch</i>
+                </p>
 
 
             </div>
@@ -118,7 +124,7 @@
             </div>
             <!-- Media Pipe-->
             <div class="col-sm-4">
-                <div class="control3" />
+                <div style="padding-left: 20px ; padding-right:0px ; padding-top: 25px;" class="control3" />
             </div>
             <br>
         </div>

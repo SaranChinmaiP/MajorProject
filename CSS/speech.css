@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: bisque;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* WIDGET WRAPPER */
+.widget-wrap {
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.widget-wrap label,
+.widget-wrap input,
+.widget-wrap select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+
+/* SVG */
+#vol {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* FOOTER */
+#code-boxx {
+    font-weight: 600;
+    margin-top: 50px;
+}
+
+#code-boxx a {
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none;
+    background: #b90a0a;
+    color: #fff;
+}

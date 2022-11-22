@@ -60,8 +60,8 @@ const camera = new Camera(video2, {
   onFrame: async () => {
     await faceMesh.send({image: video2});
   },
-  width: 480,
-  height: 480
+  width: 400,
+  height: 400
 });
 camera.start();
 

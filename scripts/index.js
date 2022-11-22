@@ -114,10 +114,7 @@ async function init() {
   window.requestAnimationFrame(loop);
 
   // append elements to the DOM
-  labelContainer = document.getElementById("label-container");
-  for (let i = 0; i < maxPredictions; i++) { // and class labels
-    labelContainer.appendChild(document.createElement("div"));
-  }
+  
 }
 
 
@@ -157,7 +154,7 @@ async function predict() {
   }
 
   const Factor = Math.floor(max * 100);
-  if (Factor > 70) {
+  if (Factor > 60) {
     //Finds the Class Name of the  maximum value
     const index = prediction.findIndex((element) => element.probability === max);
     console.log(prediction[index]['className'] + ' : ' + Factor + "%");

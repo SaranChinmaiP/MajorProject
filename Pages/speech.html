@@ -4,6 +4,7 @@
 <head>
   <link rel="icon" href="../images/hand-peace.png">
   <link href="../CSS/speech.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,8 +13,41 @@
 </head>
 
 <body>
+
+  <div class="jumbotron text-center" style="margin-bottom:0">
+    <img src="../images/vnr-logo.png" alt="VNR-LOGO" class="float-left">
+    <h1>Text to Speech Tool </h1>
+    <p>Hand Sign Recognition Model ProtoType -Version-2022.11.22-2</p>
+</div>
+
+<!--NAVIGATION PANE-->
+<nav class="navbar navbar-expand-sm bg-success navbar-dark">
+    <a class="navbar-brand" href="../index.html">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" href="#">Text-To-Speech</a>
+          </li>
+            <li class="nav-item">
+                <a class="nav-link" target="_blank" href="../Pages/funzone.html">Face Dectection</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../Pages/info.html">Info</a>
+          </li>
+            
+            
+            <li class="nav-item">
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row justify-content-center" id="tts">
+  <div id="tts">
   <form id="demo" class="widget-wrap">
-    <h4>Text to Speech Tool </h4>
 
     <!-- (A) VOICE PICKER -->
     <label>Choose A Voice</label>
@@ -29,16 +63,17 @@
 
     <!-- (C) SAY SOMETHING -->
     <label>Message</label>
-    <input type="text" id="demo-msg" value="VNR v j i e t" disabled required />
+    <input type="text" id="demo-msg" value="VNR V J I E T" disabled required />
 
     <!-- (D) GO! -->
     <label>Go!</label>
     <input type="submit" id="demo-go" disabled value="Speak" />
 
-    <!-- (X) VISIT CODE-BOXX -->
 
   </form>
-
+</div>
+  
+</div>
   <script src="../scripts/Speech.js"></script>
 </body>
 

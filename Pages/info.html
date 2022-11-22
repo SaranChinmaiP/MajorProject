@@ -17,29 +17,29 @@
     <div class="jumbotron text-center" style="margin-bottom:0">
         <img src="../images/vnr-logo.png" alt="VNR-LOGO" class="float-left">
         <h1>DL Project Info </h1>
-        <p>Hand Sign Recognition Model ProtoType -Version-2022.10.20-1</p>
+        <p>Hand Sign Recognition Model ProtoType -Version-2022.11.22-2</p>
     </div>
 
     <!--NAVIGATION PANE-->
     <nav class="navbar navbar-expand-sm bg-success navbar-dark">
-        <a class="navbar-brand" href="../index.html">HOME</a>
+        <a class="navbar-brand" href="../index.html">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">PROJECT-INFO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="../Pages/funzone.html">FunZone</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" target="_blank" href="../Pages/speech.html">TTS</a>
                 </li>
+                
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="http://www.vnrvjiet.ac.in/">VNR-VJIET</a>
+                    <a class="nav-link" target="_blank" href="../Pages/funzone.html">Face Dectection</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">PROJECT-INFO</a>
+                </li>
+                
+
                 <li class="nav-item">
                 </li>
             </ul>
@@ -49,8 +49,7 @@
 
     <!--Image Gallery-->
     <div class="container">
-        <h6>Characteristcs</h6>
-        <hr>
+        <p>Sign Language Chart</p>
         <div class="row">
             <div class="col-lg-4 col-sm-6" id="chimages">
                 <div class="thumbnail img-responsive">
@@ -58,20 +57,31 @@
                     </a>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-sm-6" id="chimages">
-                <div class="thumbnail img-responsive">
-                    <a href="#" title="Confusion-Matrix"><img src="../images/Confusion-Matrix.png"
-                            alt="Confusion-Matrix"></a>
-                </div>
+        </div>
+    </div>
+<br>
+<p style="text-align: center;">
+    Model Trainig Characteristics
+</p>
+<br>
+    <div class="row">
+        
+        <div class="col-sm-4" id="chimages">
+            <div class="thumbnail img-responsive">
+                <a href="#" title="Confusion-Matrix"><img src="../images/Confusion-Matrix.png"
+                        alt="Confusion-Matrix"></a>
             </div>
+        </div>
 
-            <div class="col-lg-4 col-sm-6" id="chimages">
-                <div class="thumbnail img-responsive">
-                    <a href="#" title="LossPerEpoch"><img src="../images/LossPerEpoch.png" alt="LossPerEpoch"> </a>
-                </div>
+        <div class="col-sm-4" id="chimages">
+            <div class="thumbnail img-responsive">
+                <a href="#" title="LossPerEpoch"><img src="../images/LossPerEpoch.png" alt="LossPerEpoch"> </a>
             </div>
-
+        </div>
+        <div class="col-sm-4" id="chimages">
+            <div class="thumbnail img-responsive">
+                <a href="#" title="LossPerEpoch"><img src="../images/AccuracyPerEpoch.png" alt="LossPerEpoch"> </a>
+            </div>
         </div>
     </div>
 

@@ -1,6 +1,8 @@
 
 
-const URL = "https://teachablemachine.withgoogle.com/models/6xm60hr9Q/";
+//const URL = "https://teachablemachine.withgoogle.com/models/6xm60hr9Q/";
+const URL =  "https://teachablemachine.withgoogle.com/models/9Jr_sKu8X/"
+
 
 
 console.log("Hands.js Script is Runnig");
@@ -26,9 +28,9 @@ function onResultsHands(results) {
       const landmarks = results.multiHandLandmarks[index];
       drawConnectors(
         canvasCtx3, landmarks, HAND_CONNECTIONS,
-        { color: isRightHand ? '#00FF00' : '#FF0000', lineWidth: 1 }),
+        { color: isRightHand ? '#FFFFFF' : '#FF0000', lineWidth: 1 }),
         drawLandmarks(canvasCtx3, landmarks, {
-          color: isRightHand ? '#00FF00' : '#FF0000',
+          color: isRightHand ? '#FFFFFF' : '#FF0000',
           fillColor: isRightHand ? '#FF0000' : '#00FF00',
           radius: (x) => {
             return lerp(x.from.z, -0.15, .1, 5, 1);
@@ -136,7 +138,7 @@ async function loop() {
 // run the webcam image through the image model
 async function predict() {
   // predict can take in an image, video or canvas html element
-  const prediction = await model.predict(video3);
+  const prediction = await model.predict(out3);
 
   // Gets the Maximum Prediction of the Probabilty
   var max = Math.max.apply(null,
@@ -154,7 +156,7 @@ async function predict() {
   }
 
   const Factor = Math.floor(max * 100);
-  if (Factor > 60) {
+  if (Factor > 65) {
     //Finds the Class Name of the  maximum value
     const index = prediction.findIndex((element) => element.probability === max);
     console.log(prediction[index]['className'] + ' : ' + Factor + "%");

@@ -43,7 +43,7 @@ function onResultsHands(results) {
       const landmarks = results.multiHandLandmarks[index];
       drawConnectors(
         canvasCtx3, landmarks, HAND_CONNECTIONS,
-        { color: isRightHand ? '#FFFFFF' : '#FF0000', lineWidth: 1 }),
+        { color: isRightHand ? '#FFFFFF' : '#FF0000', lineWidth: 2 }),
         drawLandmarks(canvasCtx3, landmarks, {
           color: isRightHand ? '#FFFFFF' : '#FF0000',
           fillColor: isRightHand ? '#FF0000' : '#00FF00',

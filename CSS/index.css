@@ -36,3 +36,8 @@
     padding: 10px;
     align-content: center;
 }
+
+#header{
+    background-color :aliceblue;
+    margin: 0;
+}

@@ -25,21 +25,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 </head>
-<!--BODY SECTION-->
 
-<body>
-
+<header>
     <!--HEADER PART-->
-
-    <div class="jumbotron text-center" style="margin-bottom:0">
+    <div class="jumbotron text-center" style="margin:0 ; padding: 0;">
+        
         <img src="./images/vnr-logo.png" alt="VNR-LOGO" class="float-left">
-        <h1>Saran's ✨DL Project </h1>
-        <p>Hand Sign Recognition Model Prototype-Version-2022.11.22-2</p>
+        <br>
+        <h1>Major Project </h1>
+        <p style="margin: 2px;">Hand Sign Recognition Model ProtoType -Version-2022.11.22-2</p>
     </div>
-
     <!--NAVIGATION PANE-->
 
-    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-info navbar-dark">
         <a class="navbar-brand" target="_self" href="#">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -62,14 +60,17 @@
             </ul>
         </div>
     </nav>
+</header>
+<!--BODY SECTION-->
 
+    <body>
     <!--CONTROL BUTTONS-->
 
     <div class="container" style="margin-top:30px" id="controlButtons">
         <div class="row">
             <div class="col-sm-2">
                 <p class="badge badge-warning">Control Buttons</p>
-
+<br>
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" onclick="init()">Start Model</button>
                     <button type="button" class="btn btn-warning" onclick="PauseCam()">Pause-Cam</button>
@@ -106,13 +107,14 @@
                     style="background-color: rgb(137, 238, 97)"></canvas>
 
                 <br>
-                <p id="status" style="color: purple;font-style: italic; ">O/p:Recognized Sign-Confidence Rate</p>
-                <div class="alert alert-primary alert-dismissible fade show col-sm-6">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Ensure to Allow Webcam Access !
-                </div>
 
 
+                <p style="margin-top: 10px;" class=" card bg-light p-1" id="status"> Check Output Here! <br />
+                    Recognized Sign-Confidence Rate</p>
+
+                <br>
+
+               
 
                 <!--Confidence Rate Bar Graph-->
 
@@ -126,7 +128,16 @@
             </div>
             <!-- Media Pipe-->
             <div class="col-sm">
-                <div style="padding-left: 20px ; padding-right:0px ; padding-top: 25px;" class="control3" />
+
+                <div style="padding-left: 20px ; padding-right:0px ; padding-top: 15x;">
+
+                    <p class="badge badge-success"> Cropped Image</p>
+                    <br>
+                    <canvas  class="crop-container" width="180px" height="235px"
+                        style="background-color: rgba(224, 204, 247, 0.862)"></canvas>
+                </div> 
+
+                <div style="padding-left: 20px ; padding-right:0px ; padding-top: 20px;" class="control3" />
             </div>
             <br>
         </div>
@@ -137,7 +148,7 @@
 
     <!--FOOTER SECTION-->
 
-    <div class="jumbotron text-center" style="margin-bottom:0">
+    <div class="jumbotron text-center" style="margin-bottom:0 ; padding: 10px;">
         <p>Project Under guidence of <abbr title="Asst.Prof - EEE Department VNR VJEIT.">Dr.O.Shobana</abbr></p>
         <div class="col-md-12 text-center">
             <p class="menu">
@@ -172,7 +183,7 @@
 
         var view = new google.visualization.DataView(data);
         var options = {
-            title: "Toggle Switch the Model to See Model Data",
+            title: "Toggle Switch to See Model Data",
             width: 385,
             height: 400,
             bar: { groupWidth: "10%" },

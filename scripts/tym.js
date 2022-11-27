@@ -214,7 +214,6 @@ async function trainAndPredict() {
 function logProgress(epoch, logs) {
   CONSOLE_LOG.innerHTML = " "
   console.log(epoch, logs);
-  console.log(CLASS_NAMES + " Class List");
   CONSOLE_LOG.innerHTML = "Training data for epoch " + epoch;
 
 }
@@ -230,7 +229,6 @@ function predictLoop() {
       let prediction = model.predict(imageFeatures.expandDims()).squeeze();
       let highestIndex = prediction.argMax().arraySync();
       let predictionArray = prediction.arraySync();
-      console.log(highestIndex);
       STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
     });
 

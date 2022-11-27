@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../images/hand-peace.png">
+    <link href="../CSS/tym.css" rel="stylesheet">
     <link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -28,7 +29,7 @@
         <h1>Train Your Own Model </h1>
         <p style="margin: 2px;">Hand Sign Recognition Model ProtoType -Version-2022.11.24-1</p>
     </div>
-    
+
     <!--NAVIGATION PANE-->
 
     <nav class="navbar navbar-expand-sm bg-success navbar-dark">
@@ -44,7 +45,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_self" href="../Pages/tts.html">TTS</a>
-                  </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="../Pages/funzone.html">Face Dectection</a>
                 </li>
@@ -54,8 +55,8 @@
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="../Pages/info.html">Info</a>
                 </li>
-                
-                
+
+
             </ul>
         </div>
     </nav>
@@ -66,41 +67,49 @@
         <div class="row">
             <div style="padding-left: 0px; margin-left: 0px;" class="col-sm">
                 <p class="badge badge-info">Webcam </p>
+                <button id="Cam" class=" btn btn-outline-success">Enable📷</button>
+
                 <br>
-                <video width="300px" height="280px" style="background-color: rgba(243, 249, 241)" id="webcam"
-                    autoplay></video>
+                <video id="webcam" autoplay></video>
+                <br>
+                <button class=" btn btn-outline-dark" id="download" onclick="modelDownload()">⬇️Download Model</button>
+
 
             </div>
 
 
             <!--Buttons  COLUMN-->
 
-            <div class="col-sm">
+            <div class="col-sm" style="text-align: center;">
+                <label class="badge badge-info">Epochs </label>
+
+                <input id="epochsValue" placeholder="Epochs" type="number" value=20 style="text-align: center;">
+                <br>
+                <button type="button" class="m" id="AddClass" onclick="createNewClass()">➕</button>
+                <br>
                 <div class="btn-group-vertical">
-                    <button id="Cam" class=" btn btn-outline-success">Enable📷Webcam</button>
-                    <br>
                     <button class="dataCollector btn btn-outline-secondary" data-1hot="0" data-name="Class 1">Gather
-                        Class 1️⃣ </button>
-                    <button class="dataCollector btn btn-outline-secondary" data-1hot="1" data-name="Class 2">Gather
-                        Class 2️⃣ </button>
-                    <button class="dataCollector btn btn-outline-secondary" data-1hot="2" data-name="Class 3">Gather
-                        Class 3️⃣ </button>
-                    <br>
+                        Class 1 </button>
 
                 </div>
             </div>
 
             <div class="col-sm">
 
-                <button id="train" class="btn btn-outline-primary">Train &amp; Predict!</button>
+                <button id="train" class="btn btn-outline-primary">Train</button>
+                <button id="train" class="btn btn-outline-primary" onclick="predictLoop()">Predict!</button>
+
                 <button class="btn btn-outline-warning" id="reset">Reset</button>
 
-                <p style="margin-bottom: 0px; margin-top: 30px;" class="badge badge-success"> Status/Output Box : </p>
-                <div style="margin-top: 10px;" class="card bg-light p-2" id="status"> Check Output Here! <br />Status :
+                <p id="badges" class="badge badge-success"> Status/Output Box : </p>
+                <div class="card bg-light p-2" id="status"> Check Output Here! <br />Status :
                     Awaiting TF.js load</div>
-                    <br>
-
-                <button class =" btn btn-outline-dark" id = "download" onclick="modelDownload()" >⬇️Download Model</button>    
+                <br>
+                <p id="badges" class="badge badge-dark"> Console : </p>
+                <div class="card bg-light p-2" id="consoleLog"> Once Training Starts You Can See stuff here . </div>
+                <br>
+                <a href="#" title="Training Tips" data-toggle="popover" data-trigger="focus"
+                    data-content="1. Give At Least 100 Data Samples for Each Class">Tips</a>
 
 
             </div>
@@ -132,6 +141,11 @@
         </div>
     </div>
     <script src="../scripts/tym.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
 </body>
 
 

@@ -1,3 +1,5 @@
+var classCounter = 1;
+var classNameCounter = "";
 const STATUS = document.getElementById('status');
 const VIDEO = document.getElementById('webcam');
 const ENABLE_CAM_BUTTON = document.getElementById('Cam');
@@ -7,20 +9,41 @@ const MOBILE_NET_INPUT_WIDTH = 224;
 const MOBILE_NET_INPUT_HEIGHT = 224;
 const STOP_DATA_GATHER = -1;
 const CLASS_NAMES = [];
+const EPOCHS_VALUE = document.getElementById('epochsValue');
+const CONSOLE_LOG = document.getElementById('consoleLog');
+const ADD_CLASS = document.getElementById('AddClass');
 
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
+var epochParamter = EPOCHS_VALUE.value;
+EPOCHS_VALUE.addEventListener('keyup', function () { epochParamter = EPOCHS_VALUE.value; });
+const ClassContainer = document.getElementsByClassName("btn-group-vertical");
 
-// Just add more buttons in HTML to allow classification of more classes of data!
-let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
-for (let i = 0; i < dataCollectorButtons.length; i++) {
-  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
-  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
-  // Populate the human readable names for classes.
-  CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
+function createNewClass() {
+  const newClassButton = document.createElement("button");
+  newClassButton.style.textAlign = "center";
+  newClassButton.setAttribute("class", "dataCollector btn btn-outline-secondary");
+  newClassButton.setAttribute("data-1hot", classCounter++);
+  classNameCounter = "Class " + classCounter;
+  newClassButton.setAttribute("data-name", classNameCounter);
+  newClassButton.innerText = "Gather Class " + classCounter;
+  ClassContainer[0].appendChild(newClassButton);
+
 }
 
+ADD_CLASS.addEventListener('click', () => {
+  CLASS_NAMES.length = 0;
+  let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
+  for (let i = 0; i < dataCollectorButtons.length; i++) {
+    dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
+    dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
+    // Populate the human readable names for classes.
+    CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
+  }
+  modelCompile();
+}
+);
 
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
@@ -36,9 +59,9 @@ let predict = false;
  **/
 async function loadMobileNetFeatureModel() {
   const URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
-  mobilenet = await tf.loadGraphModel(URL, {fromTFHub: true});
+  mobilenet = await tf.loadGraphModel(URL, { fromTFHub: true });
   STATUS.innerText = 'MobileNet v3 loaded successfully!';
-  
+
   // Warm up the model by passing zeros through it once.
   tf.tidy(function () {
     let answer = mobilenet.predict(tf.zeros([1, MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH, 3]));
@@ -47,25 +70,26 @@ async function loadMobileNetFeatureModel() {
 }
 
 loadMobileNetFeatureModel();
+model = tf.sequential();
+model.add(tf.layers.dense({ inputShape: [1024], units: 128, activation: 'relu' }));
 
 
-let model = tf.sequential();
-model.add(tf.layers.dense({inputShape: [1024], units: 128, activation: 'relu'}));
-model.add(tf.layers.dense({units: CLASS_NAMES.length, activation: 'softmax'}));
+function modelCompile() {
+  model.add(tf.layers.dense({ units: CLASS_NAMES.length, activation: 'softmax' }));
 
-model.summary();
+  model.summary();
 
-// Compile the model with the defined optimizer and specify a loss function to use.
-model.compile({
-  // Adam changes the learning rate over time which is useful.
-  optimizer: 'adam',
-  // Use the correct loss function. If 2 classes of data, must use binaryCrossentropy.
-  // Else categoricalCrossentropy is used if more than 2 classes.
-  loss: (CLASS_NAMES.length === 2) ? 'binaryCrossentropy': 'categoricalCrossentropy', 
-  // As this is a classification problem you can record accuracy in the logs too!
-  metrics: ['accuracy']  
-});
-
+  // Compile the model with the defined optimizer and specify a loss function to use.
+  model.compile({
+    // Adam changes the learning rate over time which is useful.
+    optimizer: 'adam',
+    // Use the correct loss function. If 2 classes of data, must use binaryCrossentropy.
+    // Else categoricalCrossentropy is used if more than 2 classes.
+    loss: (CLASS_NAMES.length === 2) ? 'binaryCrossentropy' : 'categoricalCrossentropy',
+    // As this is a classification problem you can record accuracy in the logs too!
+    metrics: ['accuracy']
+  });
+}
 
 /**
  * Check if getUserMedia is supported for webcam access.
@@ -83,14 +107,14 @@ function enableCam() {
     // getUsermedia parameters.
     const constraints = {
       video: true,
-      width: 380, 
-      height: 380 
+      width: 380,
+      height: 380
     };
 
     // Activate the webcam stream.
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
       VIDEO.srcObject = stream;
-      VIDEO.addEventListener('loadeddata', function() {
+      VIDEO.addEventListener('loadeddata', function () {
         videoPlaying = true;
         ENABLE_CAM_BUTTON.classList.add('removed');
       });
@@ -112,14 +136,14 @@ function gatherDataForClass() {
 
 
 function calculateFeaturesOnCurrentFrame() {
-  return tf.tidy(function() {
+  return tf.tidy(function () {
     // Grab pixels from current VIDEO frame.
     let videoFrameAsTensor = tf.browser.fromPixels(VIDEO);
     // Resize video frame tensor to be 224 x 224 pixels which is needed by MobileNet for input.
     let resizedTensorFrame = tf.image.resizeBilinear(
-        videoFrameAsTensor, 
-        [MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH],
-        true
+      videoFrameAsTensor,
+      [MOBILE_NET_INPUT_HEIGHT, MOBILE_NET_INPUT_WIDTH],
+      true
     );
 
     let normalizedTensorFrame = resizedTensorFrame.div(255);
@@ -140,7 +164,7 @@ function dataGatherLoop() {
 
     trainingDataInputs.push(imageFeatures);
     trainingDataOutputs.push(gatherDataState);
-    
+
     // Intialize array index element if currently undefined.
     if (examplesCount[gatherDataState] === undefined) {
       examplesCount[gatherDataState] = 0;
@@ -150,7 +174,7 @@ function dataGatherLoop() {
 
     STATUS.innerText = '';
     for (let n = 0; n < CLASS_NAMES.length; n++) {
-      STATUS.innerHTML += CLASS_NAMES[n] + ' data count: ' + examplesCount[n] + '. ' + "<br/>" ;
+      STATUS.innerHTML += CLASS_NAMES[n] + ' data count: ' + examplesCount[n] + '. ' + "<br/>";
     }
 
     window.requestAnimationFrame(dataGatherLoop);
@@ -163,7 +187,7 @@ function dataGatherLoop() {
  **/
 async function trainAndPredict() {
   predict = false;
-  STATUS.innerHTML+= "***TRAINING STARTED***" ;
+  STATUS.innerHTML += "***TRAINING STARTED***";
 
   tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
 
@@ -173,16 +197,14 @@ async function trainAndPredict() {
   let results = await model.fit(inputsAsTensor, oneHotOutputs, {
     shuffle: true,
     batchSize: 5,
-    epochs: 10,
-    callbacks: {onEpochEnd: logProgress}
+    epochs: epochParamter,
+    callbacks: { onEpochEnd: logProgress }
   });
-  
+
   outputsAsTensor.dispose();
   oneHotOutputs.dispose();
   inputsAsTensor.dispose();
-  
   predict = true;
-  predictLoop();
 }
 
 
@@ -190,7 +212,11 @@ async function trainAndPredict() {
  * Log training progress.
  **/
 function logProgress(epoch, logs) {
-  console.log('Data for epoch ' + epoch, logs);
+  CONSOLE_LOG.innerHTML = " "
+  console.log(epoch, logs);
+  console.log(CLASS_NAMES + " Class List");
+  CONSOLE_LOG.innerHTML = "Training data for epoch " + epoch;
+
 }
 
 
@@ -199,11 +225,12 @@ function logProgress(epoch, logs) {
  **/
 function predictLoop() {
   if (predict) {
-    tf.tidy(function() {
+    tf.tidy(function () {
       let imageFeatures = calculateFeaturesOnCurrentFrame();
       let prediction = model.predict(imageFeatures.expandDims()).squeeze();
       let highestIndex = prediction.argMax().arraySync();
       let predictionArray = prediction.arraySync();
+      console.log(highestIndex);
       STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
     });
 
@@ -226,11 +253,11 @@ function reset() {
   trainingDataInputs.splice(0);
   trainingDataOutputs.splice(0);
   STATUS.innerText = 'No Data collected';
-  
+
   console.log('Tensors in memory: ' + tf.memory().numTensors);
 }
 
-async function modelDownload(){
+async function modelDownload() {
   await model.save('downloads://my-model');
 
 }

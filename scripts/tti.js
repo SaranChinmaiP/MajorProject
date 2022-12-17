@@ -1,12 +1,80 @@
-function getInput() {
-    var signText = document.getElementById("myText").value;
+const searchWrapper = document.querySelector(".search-input");
+const inputBox = searchWrapper.querySelector("input");
+const suggBox = searchWrapper.querySelector(".autocom-box");
+const icon = document.getElementById('search');
+// if user press any key and release
+inputBox.onkeyup = (e) => {
+    let userData = e.target.value; //user enetered data
+    let emptyArray = [];
+    if (userData) {
+        icon.onclick = () => {
+            processText(userData);
 
-    document.getElementById("demo").innerHTML = signText;
-    clearScreen();
-    process(signText);
+        }
+
+        emptyArray = suggestions.filter((data) => {
+            //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((data) => {
+            // passing return data inside li tag
+            return data = `<li>${data}</li>`;
+        });
+        searchWrapper.classList.add("active"); //show autocomplete box
+        showSuggestions(emptyArray);
+        let allList = suggBox.querySelectorAll("li");
+        for (let i = 0; i < allList.length; i++) {
+            //adding onclick attribute in all li tag
+            allList[i].setAttribute("onclick", "select(this)");
+        }
+    } else {
+        searchWrapper.classList.remove("active"); //hide autocomplete box
+    }
 }
 
-function process(signText) {
+function select(element) {
+    let selectData = element.textContent;
+    inputBox.value = selectData;
+    icon.onclick = () => {
+        processText(selectData);
+
+    }
+    searchWrapper.classList.remove("active");
+}
+
+function showSuggestions(list) {
+    let listData;
+    if (!list.length) {
+        userValue = inputBox.value;
+        listData = `<li>${userValue}</li>`;
+    } else {
+        listData = list.join('');
+    }
+    suggBox.innerHTML = listData;
+}
+
+
+function processText(userData) {
+    console.log(userData + "is the Raw Input");
+    let Check1 = (element) => element.toLowerCase().trim() === userData.toLowerCase().trim();
+
+    const indexCheck1 = suggestions.findIndex(Check1);
+    if (indexCheck1 > -1) {
+        console.log("Sentence Found in the Box");
+        const newImg = document.createElement("img");
+        newImg.style.height = "250px";
+        newImg.className = "img-thumbnail";
+        newImg.src = `../sentences/s${indexCheck1}.png`;
+        document.body.appendChild(newImg);
+    }
+    else {
+        console.log("Loose Processing the data");
+        looseProcess(userData)
+    }
+}
+
+
+function looseProcess(signText) {
     const Text = signText.toUpperCase().trim();
     console.log(Text);
     for (let i in Text) {
@@ -21,89 +89,7 @@ function getImg(letter) {
     newImg.style.width = "120px";
     newImg.style.height = "120px";
     newImg.className = "img-thumbnail";
-
-    switch (letter) {
-        case "A": newImg.src = "../Alpha/A.png";
-            break;
-        case "B": newImg.src = "../Alpha/B.png";
-            break;
-        case "C": newImg.src = "../Alpha/C.png";
-            break;
-        case "D": newImg.src = "../Alpha/D.png";
-            break;
-        case "E": newImg.src = "../Alpha/E.png";
-            break;
-        case "F": newImg.src = "../Alpha/F.png";
-            break;
-        case "G": newImg.src = "../Alpha/G.png";
-            break;
-        case "H": newImg.src = "../Alpha/H.png";
-            break;
-        case "I": newImg.src = "../Alpha/I.png";
-            break;
-        case "J": newImg.src = "../Alpha/J.png";
-            break;
-        case "K": newImg.src = "../Alpha/K.png";
-            break;
-        case "L": newImg.src = "../Alpha/L.png";
-            break;
-        case "M": newImg.src = "../Alpha/M.png";
-            break;
-        case "N": newImg.src = "../Alpha/N.png";
-            break;
-        case "O": newImg.src = "../Alpha/O.png";
-            break;
-        case "P": newImg.src = "../Alpha/P.png";
-            break;
-        case "Q": newImg.src = "../Alpha/Q.png";
-            break;
-        case "R": newImg.src = "../Alpha/R.png";
-            break;
-        case "S": newImg.src = "../Alpha/S.png";
-            break;
-        case "T": newImg.src = "../Alpha/T.png";
-            break;
-        case "U": newImg.src = "../Alpha/U.png";
-            break;
-        case "V": newImg.src = "../Alpha/V.png";
-            break;
-        case "W": newImg.src = "../Alpha/W.png";
-            break;
-        case "X": newImg.src = "../Alpha/X.png";
-            break;
-        case "Y": newImg.src = "../Alpha/Y.png";
-            break;
-        case "Z": newImg.src = "../Alpha/U.png";
-            break;
-        case "1": newImg.src = "../Alpha/1.png";
-            break;
-        case "2": newImg.src = "../Alpha/2.png";
-            break;
-        case "3": newImg.src = "../Alpha/3.png";
-            break;
-        case "4": newImg.src = "../Alpha/4.png";
-            break;
-        case "5": newImg.src = "../Alpha/5.png";
-            break;
-        case "6": newImg.src = "../Alpha/6.png";
-            break;
-        case "7": newImg.src = "../Alpha/7.png";
-            break;
-        case "8": newImg.src = "../Alpha/8.png";
-            break;
-        case "9": newImg.src = "../Alpha/9.png";
-            break;
-        case "10": newImg.src = "../Alpha/10.png";
-            break;
-        case " ": newImg.src = "../Alpha/space.png";
-        break;
-        case "!": newImg.src = "../Alpha/!.png";
-        break;
-
-        default: newImg.src = "../Alpha/default.png";
-
-
-    }
+    newImg.src = `../Alpha/${letter}.png`;
 
     document.body.appendChild(newImg);
 
@@ -111,6 +97,7 @@ function getImg(letter) {
 
 
 function clearScreen() {
+    inputBox.value = "";
     const Images = document.querySelectorAll('img');
     Images.forEach(box => {
         box.remove();

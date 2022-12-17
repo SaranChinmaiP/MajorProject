@@ -19,7 +19,7 @@ const STATUS_BOX = document.getElementById('status');
 
 function onResultsHands(results) {
   {
-    crop.drawImage(out3,180,60,180,235,0,0,190,235);
+    crop.drawImage(out3,150,28,224,224,0,0,224,224);
   }
   document.body.classList.add('loaded');
   fpsControl.tick();
@@ -30,7 +30,7 @@ function onResultsHands(results) {
     results.image, 0, 0, out3.width, out3.height);
     {
       canvasCtx3.beginPath();
-      canvasCtx3.rect(180, 60, 180, 235);   
+      canvasCtx3.rect(150, 30, 224, 224);   
       canvasCtx3.lineWidth = 0.5;
       canvasCtx3.strokeStyle = 'black';
       canvasCtx3.stroke();
@@ -43,12 +43,12 @@ function onResultsHands(results) {
       const landmarks = results.multiHandLandmarks[index];
       drawConnectors(
         canvasCtx3, landmarks, HAND_CONNECTIONS,
-        { color: isRightHand ? '#FFFFFF' : '#FF0000', lineWidth: 2 }),
+        { color: isRightHand ? '#FFFFFF' : '#FFFFFF', lineWidth: 2 }),
         drawLandmarks(canvasCtx3, landmarks, {
-          color: isRightHand ? '#FFFFFF' : '#FF0000',
-          fillColor: isRightHand ? '#FF0000' : '#00FF00',
+          color: isRightHand ? '#FF0000' : '#FF0000',
+          fillColor: isRightHand ? '#FF0000' : '#FF0000',
           radius: (x) => {
-            return lerp(x.from.z, -0.15, .1, 5, 1);
+            return lerp(x.from.z, 0.5, .1, 10, 1);
           }
         });
     }
@@ -108,7 +108,7 @@ new ControlPanel(controlsElement3, {
 //<--------------------------------------------------------------------------------------->
 {
   canvasCtx3.beginPath();
-  canvasCtx3.rect(180, 30, 190, 225);   
+  canvasCtx3.rect(150, 30, 224, 224);   
   canvasCtx3.lineWidth = 0.5;
   canvasCtx3.strokeStyle = 'black';
   canvasCtx3.stroke();

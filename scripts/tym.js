@@ -14,7 +14,7 @@ const CONSOLE_LOG = document.getElementById('consoleLog');
 const ADD_CLASS = document.getElementById('AddClass');
 
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
-TRAIN_BUTTON.addEventListener('click', trainAndPredict);
+TRAIN_BUTTON.addEventListener('click', trainModel);
 RESET_BUTTON.addEventListener('click', reset);
 var epochParamter = EPOCHS_VALUE.value;
 EPOCHS_VALUE.addEventListener('keyup', function () { epochParamter = EPOCHS_VALUE.value; });
@@ -28,22 +28,36 @@ function createNewClass() {
   classNameCounter = "Class " + classCounter;
   newClassButton.setAttribute("data-name", classNameCounter);
   newClassButton.innerText = "Gather Class " + classCounter;
+
+  const newClassName   = document.createElement("input") ;
+  newClassName.setAttribute("placeholder",classNameCounter);
+  newClassName.value = classNameCounter ;
+  console.log("New Class Created " + classNameCounter )
+  newClassName.setAttribute("class","nameCollector");
+
+  ClassContainer[0].appendChild(newClassName);
   ClassContainer[0].appendChild(newClassButton);
+  
 
 }
 
-ADD_CLASS.addEventListener('click', () => {
+ADD_CLASS.addEventListener('click',FeedClassName); 
+
+function FeedClassName() {
   CLASS_NAMES.length = 0;
   let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
+  let nameCollector =   document.querySelectorAll('input.nameCollector');
+
+
   for (let i = 0; i < dataCollectorButtons.length; i++) {
     dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
     dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
     // Populate the human readable names for classes.
-    CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
+    console.log(nameCollector[i].value);
+    CLASS_NAMES.push(nameCollector[i].value);
   }
   modelCompile();
 }
-);
 
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
@@ -185,7 +199,7 @@ function dataGatherLoop() {
 /**
  * Once data collected actually perform the transfer learning.
  **/
-async function trainAndPredict() {
+async function trainModel() {
   predict = false;
   STATUS.innerHTML += "***TRAINING STARTED***";
 
@@ -214,7 +228,7 @@ async function trainAndPredict() {
 function logProgress(epoch, logs) {
   CONSOLE_LOG.innerHTML = " "
   console.log(epoch, logs);
-  CONSOLE_LOG.innerHTML = "Training data for epoch " + epoch;
+  CONSOLE_LOG.innerHTML = "Training data for epoch " + (epoch + 1);
 
 }
 

@@ -88,6 +88,7 @@
                 <button type="button" class="m" id="AddClass" onclick="createNewClass()">➕</button>
                 <br>
                 <div class="btn-group-vertical">
+                    <input class = "nameCollector" type="text" placeholder="Class 1" value="Class 1">
                     <button class="dataCollector btn btn-outline-secondary" data-1hot="0" data-name="Class 1">Gather
                         Class 1 </button>
 
@@ -97,7 +98,7 @@
             <div class="col-sm">
 
                 <button id="train" class="btn btn-outline-primary">Train</button>
-                <button id="train" class="btn btn-outline-primary" onclick="predictLoop()">Predict!</button>
+                <button class="btn btn-outline-primary" onclick="predictLoop()">Predict!</button>
 
                 <button class="btn btn-outline-warning" id="reset">Reset</button>
 
@@ -140,7 +141,7 @@
             <p>Developed by SaranChinmai.P</p>
         </div>
     </div>
-    <script src="../scripts/tym.js"></script>
+    <script src="../scripts/tym.min.js"></script>
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();

@@ -11,6 +11,4 @@
 
 Web design Front-end Framework : BootStrap 4
 
-
-Team mates 
- 1. Saran
+Live Demo : https://saranchinmaip.github.io/MajorProject

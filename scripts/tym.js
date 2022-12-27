@@ -12,9 +12,8 @@ const CLASS_NAMES = [];
 const EPOCHS_VALUE = document.getElementById('epochsValue');
 const CONSOLE_LOG = document.getElementById('consoleLog');
 const ADD_CLASS = document.getElementById('AddClass');
-
 ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
-TRAIN_BUTTON.addEventListener('click', trainModel);
+TRAIN_BUTTON.addEventListener('click',trainModel);
 RESET_BUTTON.addEventListener('click', reset);
 var epochParamter = EPOCHS_VALUE.value;
 EPOCHS_VALUE.addEventListener('keyup', function () { epochParamter = EPOCHS_VALUE.value; });
@@ -27,7 +26,7 @@ function createNewClass() {
   newClassButton.setAttribute("data-1hot", classCounter++);
   classNameCounter = "Class " + classCounter;
   newClassButton.setAttribute("data-name", classNameCounter);
-  newClassButton.innerText = "Gather Class " + classCounter;
+  newClassButton.innerText = "Gather " + classCounter;
 
   const newClassName   = document.createElement("input") ;
   newClassName.setAttribute("placeholder",classNameCounter);
@@ -41,7 +40,7 @@ function createNewClass() {
 
 }
 
-ADD_CLASS.addEventListener('click',FeedClassName); 
+//ADD_CLASS.addEventListener('click',FeedClassName); 
 
 function FeedClassName() {
   CLASS_NAMES.length = 0;
@@ -56,6 +55,10 @@ function FeedClassName() {
     console.log(nameCollector[i].value);
     CLASS_NAMES.push(nameCollector[i].value);
   }
+  STATUS.innerText = '';
+    for (let n = 0; n < CLASS_NAMES.length; n++) {
+      STATUS.innerHTML += CLASS_NAMES[n] + ' Gather Images Now ' + "<br/>";
+    }
   modelCompile();
 }
 
@@ -199,6 +202,9 @@ function dataGatherLoop() {
 /**
  * Once data collected actually perform the transfer learning.
  **/
+
+
+
 async function trainModel() {
   predict = false;
   STATUS.innerHTML += "***TRAINING STARTED***";
@@ -210,7 +216,7 @@ async function trainModel() {
   let inputsAsTensor = tf.stack(trainingDataInputs);
   let results = await model.fit(inputsAsTensor, oneHotOutputs, {
     shuffle: true,
-    batchSize: 5,
+    batchSize: 16,
     epochs: epochParamter,
     callbacks: { onEpochEnd: logProgress }
   });
@@ -219,6 +225,10 @@ async function trainModel() {
   oneHotOutputs.dispose();
   inputsAsTensor.dispose();
   predict = true;
+  if(predict == true){
+    CONSOLE_LOG.innerHTML = "Training Completed for : " + epochParamter +" Epochs." +"<br/>" + " Predict Now";
+
+  }
 }
 
 
@@ -243,7 +253,7 @@ function predictLoop() {
       let prediction = model.predict(imageFeatures.expandDims()).squeeze();
       let highestIndex = prediction.argMax().arraySync();
       let predictionArray = prediction.arraySync();
-      STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
+      STATUS.innerText = CLASS_NAMES[highestIndex] + ' : ' + Math.floor(predictionArray[highestIndex] * 100) + '% Confidence';
     });
 
     window.requestAnimationFrame(predictLoop);

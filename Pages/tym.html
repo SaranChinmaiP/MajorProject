@@ -88,23 +88,23 @@
                 <button type="button" class="m" id="AddClass" onclick="createNewClass()">➕</button>
                 <br>
                 <div class="btn-group-vertical">
-                    <input class = "nameCollector" type="text" placeholder="Class 1" value="Class 1">
-                    <button class="dataCollector btn btn-outline-secondary" data-1hot="0" data-name="Class 1">Gather
-                        Class 1 </button>
+                    <input class="nameCollector" type="text" placeholder="Class 1" value="Class 1">
+                    <button class="dataCollector btn btn-outline-secondary" data-1hot="0" data-name="Class 1">Gather 1 </button>
 
                 </div>
             </div>
 
             <div class="col-sm">
+                <button class="btn btn-outline-secondary" style="margin-bottom: 5px;"
+                    onclick="FeedClassName()">1️⃣Warm-Up</button>
 
-                <button id="train" class="btn btn-outline-primary">Train</button>
-                <button class="btn btn-outline-primary" onclick="predictLoop()">Predict!</button>
+                <button class="btn btn-outline-primary" onclick="predictLoop()">3️⃣ Predict!</button>
+                <button id="train" class="btn btn-outline-primary">2️⃣Train</button>
 
                 <button class="btn btn-outline-warning" id="reset">Reset</button>
-
+                <br>
                 <p id="badges" class="badge badge-success"> Status/Output Box : </p>
-                <div class="card bg-light p-2" id="status"> Check Output Here! <br />Status :
-                    Awaiting TF.js load</div>
+                <div class="card bg-light p-2" id="status">Preparing MobileNet-V3 ... <br/> Check OutPut Here !</div>
                 <br>
                 <p id="badges" class="badge badge-dark"> Console : </p>
                 <div class="card bg-light p-2" id="consoleLog"> Once Training Starts You Can See stuff here . </div>
